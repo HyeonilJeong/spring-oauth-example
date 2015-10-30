@@ -33,6 +33,10 @@
 		<oauth:password/>
 	</oauth:authorization-server>
 	
+	<oauth:client-details-service id="clientDetails">
+		<!-- TODO -->
+	</oauth:client-details-service>
+	
 	<oauth:resource-server id="resourceServiceFilter" resource-id="exampleAPI" token-services-ref="tokenServices"/>
 	
 	<beans:bean id="clientCredentialsTokenEndpointFilter" class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
@@ -43,14 +47,15 @@
 		<beans:constructor-arg ref="clientDetails" />
 	</beans:bean>
 	
-	<beans:bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.InMemoryTokenStore" />
+	<beans:bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore" />
+	
 	<!-- DB 저장 형식
-	<beans:bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.JdbcTokenStore">
+	<beans:bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.store.JdbcTokenStore">
 		<beans:constructor-arg ref="dataSource"/>
 	</beans:bean>
 	-->
 	
-	<beans:bean id="tokenServices" class="org.springframework.security.oauth.provider.token.DefaultTokenServices">
+	<beans:bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
 		<beans:property name="tokenStore" ref="tokenStore" />
 		<beans:property name="supportRefreshToken" value="true" />
 		<beans:property name="clientDetailsService" ref="clientDetails" />
