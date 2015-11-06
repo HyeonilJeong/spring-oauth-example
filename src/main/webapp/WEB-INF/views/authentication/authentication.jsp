@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
+	<%-- Set contextPath in variable --%>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -26,9 +27,12 @@
 </head>
 <body>
 	<form id="login_form" action="${contextPath}/oauth/token" method="post">
+		<!-- grant type -->
 		<input type="hidden" name="grant_type" value="password" />
+		<!-- Client information -->
 		<input type="hidden" name="client_id" value="myapp" />
 		<input type="hidden" name="client_secret" value="myapp_secret" />
+		<!-- csrf token -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<table>
 			<tr>
